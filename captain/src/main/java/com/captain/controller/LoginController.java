@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class LoginController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @RequestMapping("doLogin")
     public String doLogin(String name, String password) {
