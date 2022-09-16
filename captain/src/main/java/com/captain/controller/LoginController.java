@@ -4,23 +4,29 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.captain.beans.entity.User;
 import com.captain.serivice.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.ui.Model;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @auth sailor
  * @date 2022/4/23 17:31
  * @desc LoginController
  */
-@RestController
+@Controller
 @AllArgsConstructor
 public class LoginController {
 
     private final UserService userService;
 
-    @RequestMapping("doLogin")
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String login() {
+        return "index";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "doLogin", method = RequestMethod.GET)
     public String doLogin(String name, String password) {
         User user = userService.isUser(name, password);
         if(user != null) {
@@ -30,11 +36,13 @@ public class LoginController {
         return "登录失败";
     }
 
+    @ResponseBody
     @RequestMapping("isLogin")
     public Boolean isLogin() {
         return StpUtil.isLogin();
     }
 
+    @ResponseBody
     @RequestMapping("logout")
     public void logout() {
         StpUtil.logout();

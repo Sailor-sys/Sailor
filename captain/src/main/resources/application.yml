@@ -2,9 +2,10 @@ server:
   port: 8088
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/sailor?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    url: jdbc:mysql://sailor.ink:3306/sailor?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
     username: root
-    password: root
+    password: P@root77
+    type: com.alibaba.druid.pool.DruidDataSource
   application:
     name: provider-server # 应用名称
   jpa:
@@ -13,8 +14,22 @@ spring:
       ddl-auto: update
     properties:
       hibernate.format_sql: true  #格式化sql
+  banner:
+    location: branner.txt
+  #使用thymeleaf模板以及关闭缓存
+  thymeleaf:
+    cache: false
+    mode: HTML
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.dreamchaser.pojo
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    log-prefix: mapper.
 logging:
   level:
     com.shiqihang.server: debug  #sql日志打印
